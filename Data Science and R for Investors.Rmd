@@ -39,7 +39,7 @@ symbols <- c("^GSPC", "IRX")
 
 prices <- 
   tq_get(symbols,
-        get = "stock.prices"
+        get = "stock.prices",
         from = "1990-01-01")
         
 head(prices)
