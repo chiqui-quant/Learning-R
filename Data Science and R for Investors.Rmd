@@ -1,0 +1,47 @@
+---
+title: "Data Science and R for Investors"
+output: html_notebook
+---
+
+# Data Science and R for Investors
+```{r}
+library(tidyverse)
+library(tidyquant)
+library(timetk)
+library(tibbletime)
+library(scales)
+library(highcharter)
+library(broom)
+library(PerformanceAnalytics)
+```
+
+# Strategy
+  + Buy when the SP500 50-day SMA is above the 200-day SMA ('golden cross'')
+  + Sell when the 50-day SMA moves below the 200-day SMA ('death cross')
+  + Code up the strategy
+  + Visualize its results and descriptive statistics
+  + Compare it to buy and hold
+  + Add secondary logic, visualize that strategy
+  + Conclude by building a Shiny dashboard for further exploration
+
+# Remark on data science work flow
+  1. Import
+  2. Tidy
+  3. Transform - Visualize - Model (iterative cycle)
+
+# Import data
+We will be working with SP500 and treasury bills data so that when we exit the SP500 we can invest in treasuries and get some return.
+
+We can use the 'tidyquant'package and its tq_get() function to grab data from Yahoo! Finance.
+
+```{r}
+symbols <- c("^GSPC", "IRX")
+
+prices <- 
+  tq_get(symbols,
+        get = "stock.prices"
+        from = "1990-01-01")
+        
+head(prices)
+```
+
