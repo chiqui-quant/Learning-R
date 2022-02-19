@@ -45,3 +45,28 @@ prices <-
 head(prices)
 ```
 
+It is also possible to import data from an Excel or csv file.
+
+```{r, eval = FALSE}
+prices_excel <- 
+  read_excel("~datasets/ib-prices.xlsx") %<%
+  mutate(date = ymd(date))
+```
+
+```{r, eval = FALSE}
+prices_csv <- 
+  read_csv("ib-prices.csv") %<%
+  mutate(date = ymd(date))
+```
+
+# Let's plot the price of the SP500 using highcharter
+```{r}
+library(highcharter)
+prices %<%
+  filter(symbol == "^GSPC")%<%
+  hchart(.,
+         hcaes(x = date, y = adjusted),
+         type = "line") %<%
+  hc_title(text = "GSPC price")
+```
+
