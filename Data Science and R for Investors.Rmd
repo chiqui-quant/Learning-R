@@ -35,7 +35,7 @@ We will be working with SP500 and treasury bills data so that when we exit the S
 We can use the 'tidyquant'package and its tq_get() function to grab data from Yahoo! Finance.
 
 ```{r}
-symbols <- c("^GSPC", "IRX")
+symbols <- c("^GSPC", "^IRX") #Note: c() means concatenate into a vector
 
 prices <- 
   tq_get(symbols,
@@ -49,24 +49,24 @@ It is also possible to import data from an Excel or csv file.
 
 ```{r, eval = FALSE}
 prices_excel <- 
-  read_excel("~datasets/ib-prices.xlsx") %<%
+  read_excel("~datasets/ib-prices.xlsx") %>%
   mutate(date = ymd(date))
 ```
 
 ```{r, eval = FALSE}
 prices_csv <- 
-  read_csv("ib-prices.csv") %<%
+  read_csv("ib-prices.csv") %>%
   mutate(date = ymd(date))
 ```
 
 # Let's plot the price of the SP500 using highcharter
 ```{r}
 library(highcharter)
-prices %<%
-  filter(symbol == "^GSPC")%<%
+prices %>%
+  filter(symbol == "^GSPC") %>%
   hchart(.,
          hcaes(x = date, y = adjusted),
-         type = "line") %<%
+         type = "line") %>%
   hc_title(text = "GSPC price")
 ```
 
